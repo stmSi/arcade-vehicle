@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dug02ghcovwq3"]
+
+[ext_resource type="PackedScene" uid="uid://dgergsly53reo" path="res://Assets/Cars/suv.glb" id="1_bky78"]
+[ext_resource type="Script" path="res://src/CarTemplate/car_template.gd" id="1_bsvx7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t3vk4"]
+bounce = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_76dhf"]
+radius = 1.0
+
+[node name="CarTemplate" type="Node3D"]
+script = ExtResource("1_bsvx7")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_t3vk4")
+gravity_scale = 6.0
+linear_damp = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_76dhf")
+
+[node name="CarMesh" parent="." instance=ExtResource("1_bky78")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360421, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 0.875152, 0.483848, 0, -0.483848, 0.875152, 0, 5.09628, 4.28879)
+
+[editable path="CarMesh"]

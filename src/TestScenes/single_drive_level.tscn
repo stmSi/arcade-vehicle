@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://q2dffos463dd"]
+
+[ext_resource type="Material" uid="uid://cubc10cplc8b3" path="res://src/TestScenes/prototype_ground_2.material" id="1_hsisl"]
+[ext_resource type="PackedScene" uid="uid://dug02ghcovwq3" path="res://src/CarTemplate/car_template.tscn" id="2_dtkd7"]
+[ext_resource type="Material" uid="uid://co2mc3xpbaq0q" path="res://src/TestScenes/prototype_ground.material" id="2_tlmju"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3svnf"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_8365d"]
+sky_material = SubResource("ProceduralSkyMaterial_3svnf")
+
+[sub_resource type="Environment" id="Environment_wxdxl"]
+background_mode = 2
+sky = SubResource("Sky_8365d")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="SingleDriveLevel" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wxdxl")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_mask = 0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -46)
+size = Vector3(437.196, 1, 591.597)
+material = ExtResource("1_hsisl")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.976304, -0.216406, 0, 0.216406, 0.976304, 0, 2.9503, -88.6153)
+size = Vector3(28.7742, 0.002, 34.108)
+material = ExtResource("2_tlmju")
+
+[node name="CarTemplate" parent="." instance=ExtResource("2_dtkd7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.48005, 5.40985)

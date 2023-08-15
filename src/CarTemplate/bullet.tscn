@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfh4k7308wjf"]
+
+[ext_resource type="Script" path="res://src/CarTemplate/Bullet.gd" id="1_v5qm8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugd4s"]
+shading_mode = 0
+albedo_color = Color(1, 0.54902, 0, 1)
+disable_receive_shadows = true
+grow = true
+grow_amount = 0.02
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2pqkq"]
+material = SubResource("StandardMaterial3D_ugd4s")
+top_radius = 0.001
+bottom_radius = 0.03
+height = 5.0
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_v5qm8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, -0.038614, 0, -1.97667)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_2pqkq")
+
+[node name="BulletLifeTime" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="BulletLifeTime" to="." method="_on_bullet_life_time_timeout"]

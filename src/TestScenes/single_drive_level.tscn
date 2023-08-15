@@ -17,8 +17,10 @@ sky = SubResource("Sky_8365d")
 tonemap_mode = 2
 ssao_enabled = true
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
 
 [node name="SingleDriveLevel" type="Node3D"]
 

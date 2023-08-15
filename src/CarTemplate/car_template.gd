@@ -4,7 +4,12 @@ extends Node3D
 @onready var ball : RigidBody3D = $Ball
 @onready var car_mesh : Node3D = $CarMesh
 @onready var ground_ray : RayCast3D = $CarMesh/RayCast3D
-@onready var camera_3d = $Camera3D
+@onready var camera_3d = $CameraPivot/Camera3D
+@onready var camera_pivot = $CameraPivot
+
+@onready var machine_gun: Gun = $CarMesh/machineGun
+@onready var machine_gun_2: Gun = $CarMesh/machineGun2
+var left_right_shoot: bool = false # false -> left shoot, true -> right shoot
 
 # Where to place the car mesh relative to the sphere
 var sphere_offset = Vector3(0, -1.0, 0)
@@ -33,10 +38,6 @@ var speed_input = 0
 var rotate_input = 0
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func _physics_process(delta):
 	# Keep car mesh aligned with the sphere
 	car_mesh.transform.origin = ball.transform.origin + sphere_offset
@@ -61,8 +62,12 @@ func _physics_process(delta):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	
+	if Input.is_action_pressed("weapon1_shoot"):
+		if left_right_shoot:
+			machine_gun.shoot()
+		else:
+			machine_gun_2.shoot()
+		left_right_shoot = !left_right_shoot
 	# Get steering input
 	rotate_input = 0
 	rotate_input += Input.get_action_strength("steer_left")
@@ -75,8 +80,6 @@ func _process(delta):
 				car_mesh.global_transform.basis.y, 
 				rotate_input
 			)
-
-
 		car_mesh.global_transform.basis = car_mesh.global_transform.basis.slerp(new_transform.basis, turn_speed * delta)
 		car_mesh.global_transform = car_mesh.global_transform.orthonormalized()
 
@@ -95,10 +98,7 @@ func _process(delta):
 		speed_input = deacceleration * -ball.linear_velocity.normalized()
 		if ball.linear_velocity.length() < 1:
 			speed_input = 0
-		print(ball.linear_velocity)
-		
-#	if rotate_input != 0:
-#		print('rotate_input ', rotate_input)
+
 	pass
 
 func align_with_y(xform: Transform3D, new_y: Vector3):

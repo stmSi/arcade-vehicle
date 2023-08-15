@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dug02ghcovwq3"]
+[gd_scene load_steps=7 format=3 uid="uid://dug02ghcovwq3"]
 
 [ext_resource type="PackedScene" uid="uid://dgergsly53reo" path="res://Assets/Cars/suv.glb" id="1_bky78"]
 [ext_resource type="Script" path="res://src/CarTemplate/car_template.gd" id="1_bsvx7"]
+[ext_resource type="PackedScene" uid="uid://qlqbyhv0vux6" path="res://src/CarTemplate/machine_gun.tscn" id="3_ynxut"]
+[ext_resource type="PackedScene" uid="uid://bfh4k7308wjf" path="res://src/CarTemplate/bullet.tscn" id="4_d0c5w"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t3vk4"]
 bounce = 0.1
@@ -27,7 +29,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 [node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360421, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="machineGun" parent="CarMesh" instance=ExtResource("3_ynxut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.626013, 0.627419, -1.12621)
+BulletScene = ExtResource("4_d0c5w")
+
+[node name="machineGun2" parent="CarMesh" instance=ExtResource("3_ynxut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.772556, 0.627419, -1.12621)
+BulletScene = ExtResource("4_d0c5w")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.875152, 0.483848, 0, -0.483848, 0.875152, 0, 4.09628, 4.28879)
 
 [editable path="CarMesh"]

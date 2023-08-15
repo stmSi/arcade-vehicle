@@ -4,9 +4,14 @@ extends Node3D
 @onready var ball : RigidBody3D = $Ball
 @onready var car_mesh : Node3D = $CarMesh
 @onready var ground_ray : RayCast3D = $CarMesh/RayCast3D
+@onready var camera_3d = $Camera3D
 
 # Where to place the car mesh relative to the sphere
 var sphere_offset = Vector3(0, -1.0, 0)
+
+# Camera Stuff
+var camera_distance = Vector3(0, 4, 10) # The distance of the camera from the car mesh
+var camera_damping = 0.1 # Controls the springiness of the camera
 
 # Engine power
 var acceleration = 50
@@ -44,7 +49,16 @@ func _physics_process(delta):
 	var n = ground_ray.get_collision_normal()
 	var xform = align_with_y(car_mesh.global_transform, n.normalized())
 	car_mesh.global_transform = car_mesh.global_transform.interpolate_with(xform, 1 * delta)
+	
 
+	# Code to update the camera's position like a spring
+	var target_position = car_mesh.global_transform.origin + \
+		car_mesh.global_transform.basis.z * camera_distance.z + \
+		car_mesh.global_transform.basis.y * camera_distance.y
+	camera_3d.global_transform.origin = camera_3d.global_transform.origin.lerp(target_position, camera_damping)
+	
+	camera_3d.look_at(car_mesh.global_transform.origin, Vector3.UP)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	

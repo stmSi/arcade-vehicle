@@ -1,5 +1,5 @@
 extends Node3D
-@export var bullet_speed = 100.0
+@export var bullet_speed = 150.0
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

@@ -3,7 +3,7 @@ class_name Gun
 
 @export var delay_sec_between_shot: float = 0.1
 @onready var delay_shot_timer = $DelayShotTimer
-
+@onready var gun_sound_player: AudioStreamPlayer3D = $GunSoundPlayer
 @export var BulletScene: PackedScene
 var ready_to_shoot: bool = true
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +23,8 @@ func shoot():
 		get_tree().root.add_child(bullet)
 #		add_child(bullet)
 		delay_shot_timer.start()
+		
+		gun_sound_player.play()
 		ready_to_shoot = false
 	pass
 

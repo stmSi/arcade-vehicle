@@ -58,3 +58,4 @@ weapon1_shoot={
 3d_physics/layer_1="ground"
 3d_physics/layer_2="balls"
 3d_physics/layer_3="hit_body"
+3d_physics/layer_4="bullet"

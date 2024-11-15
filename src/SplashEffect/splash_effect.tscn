@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://evyis8kji5ha"]
+
+[ext_resource type="Script" path="res://src/SplashEffect/splash_effect.gd" id="1_ycndw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycndw"]
+blend_mode = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.84267, 0.524156, 0.13964, 1)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_a2t4u"]
+material = SubResource("StandardMaterial3D_ycndw")
+radius = 0.05
+height = 0.088
+
+[sub_resource type="Curve" id="Curve_ycndw"]
+_data = [Vector2(0.000976562, 1), 0.0, 0.0, 0, 0, Vector2(0.922852, 0.538572), -1.34488, -1.34488, 0, 0, Vector2(0.993164, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="SplashEffect" type="CPUParticles3D"]
+cast_shadow = 0
+emitting = false
+amount = 5
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+mesh = SubResource("SphereMesh_a2t4u")
+initial_velocity_min = 1.0
+initial_velocity_max = 22.06
+angular_velocity_max = 7.4
+linear_accel_max = 100.0
+scale_amount_curve = SubResource("Curve_ycndw")
+script = ExtResource("1_ycndw")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

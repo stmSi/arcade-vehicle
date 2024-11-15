@@ -14,8 +14,8 @@ var left_right_shoot: bool = false # false -> left shoot, true -> right shoot
 var sphere_offset = Vector3(0, -1.0, 0)
 
 # Camera Stuff
-var camera_distance = Vector3(0, 4, 4) # The distance of the camera from the car mesh
-var camera_damping = 0.1 # Controls the springiness of the camera
+var camera_distance = Vector3(0, 3, 5) # The distance of the camera from the car mesh
+var camera_damping = 0.25 # Controls the springiness of the camera
 
 # Engine power
 var acceleration = 50

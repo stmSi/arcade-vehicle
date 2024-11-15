@@ -69,6 +69,7 @@ stream = null
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="CarMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38322, -0.0179518, 0.618896)
+visible = false
 lifetime = 0.3
 mesh = SubResource("SphereMesh_jgmnw")
 gravity = Vector3(0, 9.8, 0)

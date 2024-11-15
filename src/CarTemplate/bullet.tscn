@@ -1,25 +1,31 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfh4k7308wjf"]
 
 [ext_resource type="Script" path="res://src/CarTemplate/Bullet.gd" id="1_v5qm8"]
-[ext_resource type="Shader" path="res://src/CarTemplate/bullet.gdshader" id="2_r24xy"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltdji"]
-render_priority = 0
-shader = ExtResource("2_r24xy")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r24xy"]
+albedo_color = Color(1, 0.8, 0, 1)
+emission_enabled = true
+emission = Color(0.902776, 0.844274, 0.122895, 1)
+grow_amount = -0.246
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_2pqkq"]
-material = SubResource("ShaderMaterial_ltdji")
-top_radius = 0.015
+top_radius = 0.001
 bottom_radius = 0.015
 height = 3.0
 radial_segments = 7
 rings = 0
 
-[node name="Bullet" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1qim1"]
+size = Vector3(0.0467432, 0.0423938, 1.47829)
+
+[node name="Bullet" type="AnimatableBody3D"]
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_v5qm8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, -0.038614, 0, -1.48761)
+material_override = SubResource("StandardMaterial3D_r24xy")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_2pqkq")
 
@@ -27,5 +33,9 @@ mesh = SubResource("CylinderMesh_2pqkq")
 wait_time = 2.5
 one_shot = true
 autostart = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, -1, -0.031897, 0.00412293, -1.3077)
+shape = SubResource("BoxShape3D_1qim1")
 
 [connection signal="timeout" from="BulletLifeTime" to="." method="_on_bullet_life_time_timeout"]

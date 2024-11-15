@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://qlqbyhv0vux6"]
+[gd_scene load_steps=6 format=3 uid="uid://qlqbyhv0vux6"]
 
 [ext_resource type="Script" path="res://src/CarTemplate/machineGun.gd" id="1_ax3ro"]
 [ext_resource type="PackedScene" uid="uid://df86tntbe7o7r" path="res://Assets/WeaponsModels/machine-gun.gltf" id="2_kp1ny"]
 [ext_resource type="PackedScene" uid="uid://bfh4k7308wjf" path="res://src/CarTemplate/bullet.tscn" id="3_mrxat"]
 [ext_resource type="AudioStream" uid="uid://drrr16gge38q4" path="res://Assets/Audio/gun.wav" id="4_ccwib"]
+[ext_resource type="PackedScene" uid="uid://2w7sj5kgftgi" path="res://src/MuzzleFlash/muzzle_flash.tscn" id="5_3oc0m"]
 
 [node name="machineGun" type="Node3D"]
 script = ExtResource("1_ax3ro")
@@ -16,5 +17,7 @@ script = ExtResource("1_ax3ro")
 
 [node name="GunSoundPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_ccwib")
+
+[node name="MuzzleFlash" parent="." instance=ExtResource("5_3oc0m")]
 
 [connection signal="timeout" from="DelayShotTimer" to="." method="_on_delay_shot_timer_timeout"]

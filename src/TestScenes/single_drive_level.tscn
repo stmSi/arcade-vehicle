@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://q2dffos463dd"]
+[gd_scene load_steps=9 format=3 uid="uid://q2dffos463dd"]
 
 [ext_resource type="Material" uid="uid://cubc10cplc8b3" path="res://src/TestScenes/prototype_ground_2.material" id="1_hsisl"]
 [ext_resource type="PackedScene" uid="uid://dug02ghcovwq3" path="res://src/CarTemplate/car_template.tscn" id="2_dtkd7"]
 [ext_resource type="Material" uid="uid://co2mc3xpbaq0q" path="res://src/TestScenes/prototype_ground.material" id="2_tlmju"]
+[ext_resource type="Texture2D" uid="uid://xobvvmrhy0xa" path="res://Assets/PrototypeGridTextures/Red/texture_05.png" id="3_jdpnw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3svnf"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,9 +19,15 @@ tonemap_mode = 2
 ssao_enabled = true
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
+sdfgi_cascades = 8
 glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xgv3k"]
+albedo_texture = ExtResource("3_jdpnw")
+uv1_scale = Vector3(0.125, 0.125, 0.125)
+uv1_triplanar = true
 
 [node name="SingleDriveLevel" type="Node3D"]
 
@@ -36,14 +43,24 @@ use_collision = true
 collision_mask = 0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -46)
-size = Vector3(437.196, 1, 591.597)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -8.6709, -46)
+size = Vector3(437.196, 18.3418, 591.597)
 material = ExtResource("1_hsisl")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 0.976304, -0.216406, 0, 0.216406, 0.976304, 0, 2.9503, -32.6153)
-size = Vector3(28.7742, 0.002, 34.108)
+transform = Transform3D(1, 0, 0, 0, 0.969719, -0.244225, 0, 0.244225, 0.969719, 1.28082, 5.12157, -40.1077)
+size = Vector3(31.3358, 1.58541, 50.5706)
 material = ExtResource("2_tlmju")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.926233, 0, -0.376952, 0, 1, 0, 0.376952, 0, 0.926233, -72.1571, 11.0653, -8.31374)
+size = Vector3(3.01059, 28.4344, 96.8528)
+material = SubResource("StandardMaterial3D_xgv3k")
 
 [node name="CarTemplate" parent="." instance=ExtResource("2_dtkd7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.48005, 5.40985)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.55494, -53.6292)
+omni_range = 31.1369
+omni_attenuation = 0.214

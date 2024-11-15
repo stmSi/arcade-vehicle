@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://2w7sj5kgftgi"]
+
+[ext_resource type="Script" path="res://src/MuzzleFlash/muzzle_flash.gd" id="1_68c1t"]
+[ext_resource type="Texture2D" uid="uid://dwbkwkmqgneo8" path="res://Assets/MuzzleFlash/m_1.png" id="1_wpune"]
+
+[node name="MuzzleFlash" type="Node3D"]
+script = ExtResource("1_68c1t")
+
+[node name="Sprites" type="Node3D" parent="."]
+
+[node name="Sprite" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(-2.18557e-08, 0.5, -2.18557e-08, 0, -2.18557e-08, -0.5, -0.5, -2.18557e-08, 9.55343e-16, -9.66782e-09, 0.144181, -0.631213)
+cast_shadow = 0
+axis = 1
+texture = ExtResource("1_wpune")
+
+[node name="Sprite2" type="Sprite3D" parent="Sprites"]
+transform = Transform3D(9.55343e-16, 3.65072e-30, 0.5, -2.18557e-08, 0.5, 7.9789e-38, -0.5, -2.18557e-08, 9.55343e-16, -9.66782e-09, 0.100689, -0.631213)
+cast_shadow = 0
+axis = 1
+texture = ExtResource("1_wpune")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://csgt6kc204qh5"]
+
+[ext_resource type="Script" path="res://vehicle_body_3d.gd" id="1_3wmsh"]
+[ext_resource type="PackedScene" uid="uid://utqs2na6pk8e" path="res://Assets/Cars/race.glb" id="2_d41w2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uq1ss"]
+size = Vector3(1, 0.488892, 2.3822)
+
+[node name="VehicleBody3D" type="VehicleBody3D"]
+script = ExtResource("1_3wmsh")
+
+[node name="race" parent="." instance=ExtResource("2_d41w2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407234, 0.0227661)
+shape = SubResource("BoxShape3D_uq1ss")
+
+[node name="VehicleWheel3D" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50869, 0.276189, -0.624298)

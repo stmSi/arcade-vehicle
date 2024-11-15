@@ -1,6 +1,5 @@
 extends Node3D
 
-
 @onready var ball : RigidBody3D = $Ball
 @onready var car_mesh : Node3D = $CarMesh
 @onready var ground_ray : RayCast3D = $CarMesh/RayCast3D
@@ -20,9 +19,9 @@ var camera_damping = 0.1 # Controls the springiness of the camera
 
 # Engine power
 var acceleration = 50
-var deacceleration = -50
+var deacceleration = -1
 # Brake
-var brake = 50
+var brake = 10
 
 # Turn amount, in degrees
 var steering = 21.0
@@ -94,7 +93,7 @@ func _process(delta):
 	speed_input -= Input.get_action_strength("back")
 	speed_input *= acceleration
 
-	if Input.is_action_pressed("break") and ball.linear_velocity.length() > 1:
+	if Input.is_action_pressed("break") and ball.linear_velocity.length() > 0.2:
 		var braking_force = -brake * ball.linear_velocity.normalized()
 		ball.apply_central_force(braking_force)
 		if ball.linear_velocity.length() < 1:

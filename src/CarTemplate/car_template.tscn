@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dug02ghcovwq3"]
+[gd_scene load_steps=10 format=3 uid="uid://dug02ghcovwq3"]
 
 [ext_resource type="PackedScene" uid="uid://dgergsly53reo" path="res://Assets/Cars/suv.glb" id="1_bky78"]
 [ext_resource type="Script" path="res://src/CarTemplate/car_template.gd" id="1_bsvx7"]
@@ -8,8 +8,17 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t3vk4"]
 bounce = 0.1
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_76dhf"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ui445"]
 radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jgmnw"]
+
+[sub_resource type="Curve" id="Curve_jgmnw"]
+_data = [Vector2(0.00488281, 0.270645), 0.0, 0.0, 0, 0, Vector2(0.768555, 0.90697), 0.0, 0.0, 0, 0, Vector2(1, 0.620438), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgmnw"]
+size = Vector3(1.33838, 1, 2.32787)
 
 [node name="CarTemplate" type="Node3D"]
 script = ExtResource("1_bsvx7")
@@ -21,10 +30,28 @@ gravity_scale = 6.0
 linear_damp = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
-shape = SubResource("SphereShape3D_76dhf")
+shape = SubResource("SphereShape3D_ui445")
 
 [node name="CarMesh" parent="." instance=ExtResource("1_bky78")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="body" parent="CarMesh/suv2" index="0"]
+gi_mode = 2
+
+[node name="wheel_back" parent="CarMesh/suv2/body" index="0"]
+gi_mode = 2
+
+[node name="wheel_backLeft" parent="CarMesh/suv2" index="1"]
+gi_mode = 2
+
+[node name="wheel_backRight" parent="CarMesh/suv2" index="2"]
+gi_mode = 2
+
+[node name="wheel_frontLeft" parent="CarMesh/suv2" index="3"]
+gi_mode = 2
+
+[node name="wheel_frontRight" parent="CarMesh/suv2" index="4"]
+gi_mode = 2
 
 [node name="RayCast3D" type="RayCast3D" parent="CarMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360421, 0)
@@ -37,9 +64,29 @@ BulletScene = ExtResource("4_d0c5w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.772556, 0.627419, -1.12621)
 BulletScene = ExtResource("4_d0c5w")
 
+[node name="GunSoundPlayer" parent="CarMesh/machineGun2" index="3"]
+stream = null
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38322, -0.0179518, 0.618896)
+lifetime = 0.3
+mesh = SubResource("SphereMesh_jgmnw")
+gravity = Vector3(0, 9.8, 0)
+scale_amount_curve = SubResource("Curve_jgmnw")
+
+[node name="HitBody" type="RigidBody3D" parent="CarMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CarMesh/HitBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0540657, 0, -0.063942)
+shape = SubResource("BoxShape3D_jgmnw")
+
 [node name="CameraPivot" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.875152, 0.483848, 0, -0.483848, 0.875152, 0, 4.09628, 4.28879)
 
 [editable path="CarMesh"]
+[editable path="CarMesh/machineGun"]
+[editable path="CarMesh/machineGun2"]
